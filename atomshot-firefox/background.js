@@ -54,9 +54,17 @@ const i18nGetMessage = (name, placeholders) => chrome.i18n.getMessage(name, plac
 /**
  * @returns {Promise<AtomshotTime>}
  */
-const getTimeFromServer = () =>
-    fetch('https://www.atomshot.de/time/timestamp.php')
-        .then(r => r.json());
+const getTimeFromServer = () => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+    return fetch('https://www.atomshot.de/time/timestamp.php', { signal: controller.signal })
+        .then(r => {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        })
+        .catch(() => null)
+        .finally(() => clearTimeout(timeout));
+};
 
 
 let spinnerInterval = 0;
@@ -136,7 +144,7 @@ const getImageBitmap = uri =>
 const captureVisibleToCanvas = (tab, x, y, w = 0, h = 0, dx, dy, dw, dh) =>
     new Promise((res, rej) => {
         const { ctx } = getCanvas(tab);
-        chrome.tabs.captureVisibleTab(null, { format: 'png' }, (dataURI) => {
+        chrome.tabs.captureVisibleTab(chrome.windows.WINDOW_ID_CURRENT, { format: 'png' }, (dataURI) => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError);
                 rej();
@@ -178,7 +186,7 @@ const addHeader = async (ctx, w, snapTime) => {
                 date,
                 time,
             ]
-        )));
+        ));
     } catch (e) {
         timeString = await Promise.resolve(i18nGetMessage('timeServerError'))
             .catch(e => e);

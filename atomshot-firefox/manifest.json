@@ -20,7 +20,7 @@
     "permissions": [
         "activeTab",
         "tabs",
-        "https://www.atomshot.de/"
+        "https://www.atomshot.de/*"
     ],
     "commands": {
         "captureVisible": {

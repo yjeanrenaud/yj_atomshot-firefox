@@ -84,3 +84,15 @@ button.ggr:active,
 button.ggr:hover {
     background-image: url('images/ggr-hover.png');
 }
+
+button.yj {
+	background-color: white;
+	position: absolute;
+	right: 200px;
+	font-size: 6pt;
+	color: black;
+	white-space: nowrap;
+	width: fit-content;
+	text-align: center;
+	justify-content: center;
+}

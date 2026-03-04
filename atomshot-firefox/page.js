@@ -96,7 +96,6 @@ if (!window.__screenCaptureInit) {
                 restoreViewport();
                 break;
         }
-        respond({ ack: true });
         return true;
     });
 }

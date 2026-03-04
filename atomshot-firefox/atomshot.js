@@ -126,4 +126,11 @@ window.onload = function () {
             openTab('https://ggr-law.com/');
         }
     );
+    setupButton(
+        'yj',
+        chrome.i18n.getMessage('resultActionYJ'),
+        () => {
+            openTab('https://github.com/yjeanrenaud/yj_atomshot-firefox');
+        }
+    );
 };

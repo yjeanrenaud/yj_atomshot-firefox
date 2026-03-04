@@ -45,7 +45,7 @@
     },
     "resultTitle": {
         "description": "Document-title on the page showing the screenshot in the end",
-        "message": "gulden röttger rechtsanwälte - Screenshot mit Atomzeit"
+        "message": "gulden röttger rechtsanwälte - Screenshot mit Atomzeit | Gecko-based Browsererweiterung: Yves Jeanrenaud"
     },
     "resultActionClose": {
         "description": "Label of the 'close'-action on the result page",
@@ -65,7 +65,11 @@
     },
     "resultActionAbout": {
         "description": "Label of the 'about'-link on the result page",
-        "message": "gulden röttger rechtsanwälte"
+        "message": "gulden röttger rechtsanwälte | Gecko-based Browsererweiterung: Yves Jeanrenaud"
+    },
+    "resultActionYJ": {
+        "description": "Label of the 'yj'-link on the result page",
+        "message": "Gecko-based Browsererweiterung: Yves Jeanrenaud"
     },
     "hotkeyActionCaptureVisible": {
         "description": "Label for the action to capture the visible area in the hotkey settings",
@@ -81,7 +85,7 @@
         "placeholders": {
             "hotkey": {
                 "content": "$1",
-                "example": " (CTRL + Shift + Y)"
+                "example": " (Strg + Shift + Y)"
             }
         }
     },
@@ -91,7 +95,7 @@
         "placeholders": {
             "hotkey": {
                 "content": "$1",
-                "example": " (CTRL + Shift + F)"
+                "example": " (Strg + Shift + F)"
             }
         }
     }
