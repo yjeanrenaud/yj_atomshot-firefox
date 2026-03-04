@@ -1,0 +1,86 @@
+body {
+    margin: 0px;
+}
+
+#screenshot {
+    margin-top: 50px;
+}
+
+#controls {
+    height: 50px;
+    position: fixed;
+    display: block;
+    padding-left: 32px;
+    width: 100%;
+    background-color: #475602;
+}
+
+button {
+    cursor: pointer;
+    margin: 10px auto;
+    padding: 20px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-repeat:no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+button.close {
+    background-image: url('images/close-normal.png');
+}
+button.close:focus,
+button.close:active,
+button.close:hover {
+    background-image: url('images/close-hover.png');
+}
+
+button.save {
+    background-image: url('images/save-normal.png');
+}
+
+button.save:focus,
+button.save:active,
+button.save:hover {
+    background-image: url('images/save-hover.png');
+}
+
+button.print {
+    background-image: url('images/print-normal.png');
+}
+
+button.print:focus,
+button.print:active,
+button.print:hover {
+    background-image: url('images/print-hover.png');
+}
+
+
+button.domain-info {
+    background-image: url('images/domain-normal.png');
+    width: 227px;
+}
+
+button.domain-info:focus,
+button.domain-info:active,
+button.domain-info:hover {
+    background-image: url('images/domain-hover.png');
+}
+
+button.ggr {
+    background-image: url('images/ggr-normal.png');
+    width: 131px;
+    position: absolute;
+    right: 58px;
+}
+
+button.ggr:focus,
+button.ggr:active,
+button.ggr:hover {
+    background-image: url('images/ggr-hover.png');
+}

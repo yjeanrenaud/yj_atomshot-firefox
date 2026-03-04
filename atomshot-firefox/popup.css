@@ -1,0 +1,37 @@
+body {
+    overflow: hidden;
+    background-color: #4D4D4D;
+}
+
+button {
+    color: #FFDB37;
+    width: 240px;
+    height: 2.2em;
+    background: #4D4D4D no-repeat 2px center;
+    border: none;
+    padding-left: 20px;
+    text-align: left;
+}
+
+button#btn_screenshot_visible {
+    background-image: url('images/document-visible.png');
+    margin-bottom: 6px;
+}
+button#btn_screenshot_fullpage {
+    background-image: url('images/document-whole.png');
+}
+button:focus {
+    outline: solid 1px #4D4D4D;
+}
+button:hover {
+    outline: solid 1px #FFDB37;
+}
+#loading {
+    display: none;
+    height: 30px;
+    width: 10em;
+    background: #4D4D4D url('images/atomshot-loading.gif') scroll no-repeat center;
+}
+#feedback {
+    color: #FFDB37;
+}

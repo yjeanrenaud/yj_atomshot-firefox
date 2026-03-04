@@ -1,0 +1,55 @@
+{
+    "name": "__MSG_extName__",
+    "description": "__MSG_extDescription__",
+    "homepage_url": "https://ggr-law.com/atomshot/",
+    "version": "1.4.1",
+    "manifest_version": 2,
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "default_locale": "en",
+    "icons": {
+        "16": "/images/favicon_atomshot_16_16.png",
+        "32": "/images/favicon_atomshot_32_32.png",
+        "48": "/images/favicon_atomshot_48_48.png",
+        "128": "/images/favicon_atomshot_128_128.png"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "https://www.atomshot.de/"
+    ],
+    "commands": {
+        "captureVisible": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y"
+            },
+            "description": "__MSG_hotkeyActionCaptureVisible__"
+        },
+        "captureFullpage": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F"
+            },
+            "description": "__MSG_hotkeyActionCaptureEntire__"
+        }
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/favicon_atomshot_16_16.png",
+            "32": "/images/favicon_atomshot_32_32.png",
+            "48": "/images/favicon_atomshot_48_48.png",
+            "128": "/images/favicon_atomshot_128_128.png"
+        },
+        "default_title": "__MSG_extPopupHover__"
+    },
+    "applications": {
+        "gecko": {
+            "id": "atomshot@atomshot.de",
+            "strict_min_version": "109.0"
+        }
+    }
+}

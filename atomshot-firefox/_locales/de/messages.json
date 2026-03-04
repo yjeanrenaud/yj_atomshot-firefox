@@ -1,0 +1,98 @@
+{
+    "extName": {
+        "description": "Extension name",
+        "message": "atomshot"
+    },
+    "extDescription": {
+        "description": "Extension description",
+        "message": "Diese Erweiterung erstellt einen Screenshot mit der atomgenauen Uhrzeit."
+    },
+    "extPopupHover": {
+        "description": "Hover message on the extension popup",
+        "message": "Nehmen Sie einen Screenshot auf!"
+    },
+    "screenshotHeaderTime": {
+        "description": "Text for the screenshot header containing the date and time",
+        "message": "Dieser Screenshot wurde erstellt am: Datum $DATE$ Uhrzeit $TIME$ (Atomzeit PTB)",
+        "placeholders": {
+            "date": {
+                "content": "$1",
+                "example": "yyyy-mm-dd"
+            },
+            "time": {
+                "content": "$2",
+                "example": "hh:ii:ss"
+            }
+        }
+    },
+    "screenshotHeaderPage": {
+        "description": "Text for the screenshot header containing the URL the screenshot was taken on",
+        "message": "URL: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.com/foo/bar?baz=12"
+            }
+        }
+    },
+    "timeServerError": {
+        "description": "Message displayed when the time could not be fetched from the time server",
+        "message": "Es konnte keine Verbindung zum Zeitserver hergestellt werden. Bitte probieren Sie es zu einem späteren Zeitpunkt noch einmal."
+    },
+    "cantTakeScreenshotError": {
+        "description": "Message displayed when no screenshot can be taken for the current page",
+        "message": "Screenshot auf dieser Seite nicht möglich."
+    },
+    "resultTitle": {
+        "description": "Document-title on the page showing the screenshot in the end",
+        "message": "gulden röttger rechtsanwälte - Screenshot mit Atomzeit"
+    },
+    "resultActionClose": {
+        "description": "Label of the 'close'-action on the result page",
+        "message": "Schließen"
+    },
+    "resultActionSave": {
+        "description": "Label of the 'save'-action on the result page",
+        "message": "Speichern"
+    },
+    "resultActionPrint": {
+        "description": "Label of the 'print'-action on the result page",
+        "message": "Drucken"
+    },
+    "resultActionDomainInfo": {
+        "description": "Label of the 'domain info'-action on the result page",
+        "message": "Domaininhaber ermitteln"
+    },
+    "resultActionAbout": {
+        "description": "Label of the 'about'-link on the result page",
+        "message": "gulden röttger rechtsanwälte"
+    },
+    "hotkeyActionCaptureVisible": {
+        "description": "Label for the action to capture the visible area in the hotkey settings",
+        "message": "Screenshot des sichtbaren Bereichs"
+    },
+    "hotkeyActionCaptureEntire": {
+        "description": "Label for the action to capture the complete page in the hotkey settings",
+        "message": "Screenshot der gesamten Seite"
+    },
+    "popupActionCaptureVisible": {
+        "description": "Label for the action to capture the visible area in the popup",
+        "message": "Sichtbarer Bereich$HOTKEY$",
+        "placeholders": {
+            "hotkey": {
+                "content": "$1",
+                "example": " (CTRL + Shift + Y)"
+            }
+        }
+    },
+    "popupActionCaptureEntire": {
+        "description": "Label for the action to capture the complete page in the popup",
+        "message": "Gesamte Seite$HOTKEY$",
+        "placeholders": {
+            "hotkey": {
+                "content": "$1",
+                "example": " (CTRL + Shift + F)"
+            }
+        }
+    }
+}
