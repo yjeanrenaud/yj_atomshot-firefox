@@ -24,7 +24,15 @@ This is the link to the chrome web store entry of the extension: [https://chrome
 - `background.scrollNext()` waits for `paint` to finish
 - fixed some typos in my code and strings
 - added some rebranding, so to say. It's now more obvious that this extension for Gecko-based browers is made by me, derived from the work of gulden rüttger solicitors 
-
+- added 65x65 icons (why ever I thought 56x56 would be a good idea)
+- added `favicon_atomshot_allSizes.ico` 
+- added do `page_action`, too
+- added to menus for convenience
+- addressed a **security issue**: added `setFeedbackElement(text)` to avoid setting `innerHTML=` with potentially un-sanitised values<br/>
+  this prevents XSS if any of those values ever contain <script>, <img onError=...>, etc. and get executed.
+- domain-info button now localised and non-static
+- added options page. User may now select the file format of the screenshot and enable/disable the menu entry
+  
 ## Install
 How to load it in Firefox/Waterfox (temporary install)
 - Open *<a href="about:debugging#/runtime/this-firefox" target="_blank">about:debugging#/runtime/this-firefox</a>*
@@ -32,6 +40,5 @@ How to load it in Firefox/Waterfox (temporary install)
 - use the zip-file from [Releases](https://github.com/yjeanrenaud/yj_atomshot-firefox/releases) or unzip the file and select the `manifest.json`
 
 ## ToDo
-- add file format toggle
 - make it compatbile to Gecko-browsers on smart phones
 - upload to *addons.mozilla.org*
