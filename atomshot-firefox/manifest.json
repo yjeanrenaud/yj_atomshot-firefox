@@ -52,7 +52,7 @@
             "16": "/images/favicon_atomshot_16_16.png",
             "32": "/images/favicon_atomshot_32_32.png",
             "48": "/images/favicon_atomshot_48_48.png",
-            "56": "/images/favicon_atomshot_64_64.png",
+            "64": "/images/favicon_atomshot_64_64.png",
             "128": "/images/favicon_atomshot_128_128.png"
         },
         "default_title": "__MSG_extPopupHover__"
@@ -63,7 +63,7 @@
             "16": "/images/favicon_atomshot_16_16.png",
             "32": "/images/favicon_atomshot_32_32.png",
             "48": "/images/favicon_atomshot_48_48.png",
-            "56": "/images/favicon_atomshot_64_64.png",
+            "64": "/images/favicon_atomshot_64_64.png",
             "128": "/images/favicon_atomshot_128_128.png"
         },
         "default_title": "__MSG_extPopupHover__"
@@ -76,7 +76,7 @@
             "16": "/images/favicon_atomshot_16_16.png",
             "32": "/images/favicon_atomshot_32_32.png",
             "48": "/images/favicon_atomshot_48_48.png",
-            "56": "/images/favicon_atomshot_64_64.png",
+            "64": "/images/favicon_atomshot_64_64.png",
             "128": "/images/favicon_atomshot_128_128.png"
         },
         "default_title": "__MSG_extPopupHover__"
@@ -89,7 +89,7 @@
 			  "optional": ["technicalAndInteraction"]
 			},
 			"id": "yj_atomshot_firefox@yves.app",
-            "strict_min_version": "109.0"
+            "strict_min_version": "142.0"
 		}
 	}
 }

@@ -5,7 +5,7 @@
     },
     "extDescription": {
         "description": "Extension description",
-        "message": "This extension takes a screenshot."
+        "message": "This extension takes a screenshot with atomic-clock backed timestamp for legal purposes."
     },
     "extPopupHover": {
         "description": "Hover message on the extension popup",
@@ -98,5 +98,29 @@
                 "example": " (CTRL + Shift + F)"
             }
         }
-    }
+    },
+	"settingsTitle": {
+		"description": "Document-title for the settings page",
+		"message": "atomshot | Settings"
+	},
+	"settingsTitleSpan": {
+		"description": "Document-title for the settings page header",
+		"message": "atomshot Settings"
+	},
+	"settingsEnableMenu": {
+		"description": "Label for settings to enable/disable right-click menu",
+		"message": "Enable right-click menu"
+	},
+	"settingsImageFormatH3": {
+		"description": "Label mage format settngs header",
+		"message": "Image format"
+	},
+	"settingsJpegQuality": {
+		"description": "Label for Jpeg quality settings",
+		"message": "JPEG quality:"
+	},
+	"settingsStatusSaved": {
+		"description": "Label for settings status message",
+		"message": "Saved!"
+	}
 }

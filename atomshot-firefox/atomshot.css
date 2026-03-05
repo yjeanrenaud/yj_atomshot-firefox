@@ -61,15 +61,27 @@ button.print:hover {
 }
 
 
+
 button.domain-info {
     background-image: url('images/domain-normal.png');
-    width: 227px;
+    width: fit-content; /*227px;*/
+	color: rgba(255, 220, 55, 1.0); /*FFDC37*/
+	font-size: 18pt;
+	white-space: nowrap;
+	text-align: left;
+	vertical-align: bottom;
+	font-weight: bold;
+	padding-left: 37px;
+	padding-top: 0px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 button.domain-info:focus,
 button.domain-info:active,
 button.domain-info:hover {
     background-image: url('images/domain-hover.png');
+	color: white;
 }
 
 button.ggr {
@@ -93,10 +105,15 @@ button.yj {
 	font-size: 6pt;
 	color: black;
 	white-space: nowrap;
-	width: 237px; /*fit-content;*/
+	width: fit-content;
 	text-align: right;
 	justify-content: center;
 	padding-left: 48px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 8px;
+	height: 40px;
+
 }
 
 button.yj:focus,

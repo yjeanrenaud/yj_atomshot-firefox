@@ -1,8 +1,77 @@
 //** constants for hardening captureVisibleToCanvas() */
-const CAPTURE_FORMAT = 'png'; // 'jpeg' | 'png'
-const OUTPUT_MIME = (CAPTURE_FORMAT === 'jpeg') ? 'image/jpeg' : 'image/png';
-const CAPTURE_QUALITY = 85;    // only used for jpeg
+// const CAPTURE_FORMAT = 'png'; // 'jpeg' | 'png'
+// const OUTPUT_MIME = (CAPTURE_FORMAT === 'jpeg') ? 'image/jpeg' : 'image/png';
 const MSG_TIMEOUT_MS = 8000;
+
+//defaults
+let CAPTURE_FORMAT = "png"; // "png" | "jpeg"
+let OUTPUT_MIME = "image/png";
+let CAPTURE_QUALITY = 85;
+
+/**
+ * apply capture settings accroding to preferences
+ */
+
+async function applyCapturePrefs() {
+  const prefs = await getPrefs();
+  CAPTURE_FORMAT = (prefs.captureFormat === "jpeg") ? "jpeg" : "png";
+  OUTPUT_MIME = (CAPTURE_FORMAT === "jpeg") ? "image/jpeg" : "image/png";
+  CAPTURE_QUALITY = Number(prefs.jpegQuality) || 85;
+}
+
+const DEFAULTS = {
+  menuEnabled: true,
+  captureFormat: "png", // "png" | "jpeg"
+  jpegQuality: 85
+};
+
+/**
+ * get stored preferences
+ */
+
+async function getPrefs() {
+  return await browser.storage.local.get(DEFAULTS);
+}
+
+/**
+ * apply menu state according to stored preferences
+ */
+async function applyMenuState() {
+  const { menuEnabled } = await getPrefs();
+
+  await browser.menus.removeAll();
+  if (!menuEnabled) return;
+
+  browser.menus.create({
+    id: "capture-visible",
+    title: browser.i18n.getMessage("popupActionCaptureVisible", ""),
+    contexts: ["page"]
+  });
+  browser.menus.create({
+    id: "capture-fullpage",
+    title: browser.i18n.getMessage("popupActionCaptureEntire", ""),
+    contexts: ["page"]
+  });
+}
+
+//Call at startup and install, and react to changes
+applyMenuState();
+browser.runtime.onInstalled.addListener(applyMenuState);
+
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local") return;
+  if (changes.menuEnabled) applyMenuState();
+});
+
+applyCapturePrefs();
+
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local") return;
+
+  if (changes.captureFormat || changes.jpegQuality) {
+    applyCapturePrefs();
+  }
+});
 
 // basic error handling
 const sendMessageWithTimeout = (tabId, msg, timeoutMs = MSG_TIMEOUT_MS) => new Promise((res, rej) => {
@@ -117,7 +186,7 @@ const setLoadingIcon = () => {
     spinnerIteration = 0;
     clearInterval(spinnerInterval);
     spinnerInterval = setInterval(() => {
-        chrome.browserAction.setIcon({
+        browser.browserAction.setIcon({
             path: `./images/frame-${spinnerIteration}.png`,
         });
         spinnerIteration = (spinnerIteration + 12) % 120;
@@ -125,11 +194,12 @@ const setLoadingIcon = () => {
 };
 const resetIcon = () => {
     clearInterval(spinnerInterval);
-    chrome.browserAction.setIcon({
+    browser.browserAction.setIcon({
         path: {
             '16': './images/favicon_atomshot_16_16.png',
             '32': './images/favicon_atomshot_32_32.png',
             '48': './images/favicon_atomshot_48_48.png',
+            '64': './images/favicon_atomshot_64_64.png',
             '128': './images/favicon_atomshot_128_128.png',
         },
     });
@@ -522,4 +592,38 @@ chrome.commands.onCommand.addListener(command => {
             break;
         }
     }
+});
+
+//add to the menu of the browser, so one can call it by right-click
+/**
+ * make sure we can use the right handlers
+ */
+function createContextMenus() {
+  browser.menus.removeAll().then(() => {
+    browser.menus.create({
+      id: "capture-visible",
+      title: browser.i18n.getMessage("popupActionCaptureVisible", ""),
+      contexts: ["page"]
+    });
+
+    browser.menus.create({
+      id: "capture-fullpage",
+      title: browser.i18n.getMessage("popupActionCaptureEntire", ""),
+      contexts: ["page"]
+    });
+  });
+}
+
+createContextMenus();
+browser.runtime.onInstalled.addListener(createContextMenus);
+
+browser.menus.onClicked.addListener((info, tab) => {
+  // optional debug
+  console.log("[atomshot] menu click", info.menuItemId, tab && tab.url);
+
+  if (info.menuItemId === "capture-visible") {
+    captureVisible().catch(e => console.error("[atomshot] captureVisible failed", e));
+  } else if (info.menuItemId === "capture-fullpage") {
+    captureFullpage().catch(e => console.error("[atomshot] captureFullpage failed", e));
+  }
 });

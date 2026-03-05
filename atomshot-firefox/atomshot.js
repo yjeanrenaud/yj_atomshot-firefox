@@ -85,7 +85,23 @@ const setupButton = (id, label, callback) => {
     return btn;
 };
 
-window.onload = function () {
+/**
+ * Helper to setup a button with labels, text content, and event listener
+ * @param {string} id ID of the button-element
+ * @param {string} label Label to be set as `title`, `aria-label`, and `HTML`
+ * @param {Function} callback Click-Handler
+ * @returns {HTMLButtonElement} The button identified by the `id`
+ */
+const setupButtonText = (id, label, callback) => {
+    const btn = document.getElementById(id);
+    btn.setAttribute('title', label);
+	btn.setAttribute('aria-label', label);
+	btn.textContent = label;
+    btn.addEventListener('click', callback, false);
+    return btn;
+};
+
+window.onload = function () { // or use instead window.addEventListener('load', () => {
     chrome.runtime.onMessage.addListener(
         request => {
             switch (request.action) {
@@ -114,7 +130,7 @@ window.onload = function () {
         chrome.i18n.getMessage('resultActionPrint'),
         printShot
     );
-    setupButton(
+    setupButtonText(
         'domain-info',
         chrome.i18n.getMessage('resultActionDomainInfo'),
         domainInfo
@@ -126,11 +142,12 @@ window.onload = function () {
             openTab('https://ggr-law.com/');
         }
     );
-    setupButton(
+    setupButtonText(
         'yj',
         chrome.i18n.getMessage('resultActionYJ'),
         () => {
             openTab('https://github.com/yjeanrenaud/yj_atomshot-firefox');
         }
     );
+	console.log('atomshot init ran');
 };

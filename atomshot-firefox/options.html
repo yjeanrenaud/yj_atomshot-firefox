@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8" />
+	<title>Atomshot Settings</title>
+	<link rel="stylesheet" href="options.css">
+	<link rel="shortcut icon" href="images/favicon_atomshot_allSizes.ico">
+</head>
+<body>
+    <div id="header">
+		<button id="close" title="schließen" class="close"></button>
+        <span class="settingsTitleSpan" id="settingsTitleSpan">Atomshot Settings</span>
+        <button id="ggr" title="gulden röttger rechtsanwälte" class="ggr"></button>
+		<button id="yj" title="Gecko-based browser-extension: Yves Jeanrenaud" class="yj">Gecko-based browser-extension: Yves Jeanrenaud</button>
+    </div>
+	<div id="settings">
+	<label>
+		<input type="checkbox" id="enableMenu"><span id="enableMenuLabel">Enable right-click menu</span></label>
+
+	<h3 class="settingsImageFormatH3" id="settingsImageFormatH3">Image format</h3>
+	<label><input type="radio" name="format" value="png">PNG</label>
+	<label><input type="radio" name="format" value="jpeg">JPEG</label>
+
+	<div id="jpegQualityWrap" style="margin-top:8px;">
+		<label id="settingsJpegQuality">
+			<span id="settingsJpegQualityLabel">JPEG quality:</span>
+			<input type="number" id="jpegQuality" min="1" max="100" step="1">
+		</label>
+	</div>
+
+	<p id="status"></p>
+	<script src="options.js" defer></script>
+	</div>
+</body>
+</html>

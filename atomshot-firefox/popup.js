@@ -22,6 +22,14 @@ const getHotkey = (actions, actionName) => {
 };
 
 /**
+ * sets the feedback element without parsing it. avoids XSS
+ * @param {string} Message
+ */
+const setFeedbackElement = (message) => {
+	document.getElementById('feedback').textContent = message;
+};
+
+/**
  * Helper to trigger an action and close the popup afterwards
  * @param {string} message
  */
@@ -34,7 +42,8 @@ const handleClick = message => () => {
         done = true;
         document.getElementById('controls').style.display = 'block';
         const txt = chrome.i18n.getMessage('cantTakeScreenshotError') || 'Could not take screenshot.';
-        document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+        //document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+		setFeedbackElement(`<p>${txt}</p>`);
     }, 6000);
 
     chrome.runtime.sendMessage(message, (response) => {
@@ -45,7 +54,8 @@ const handleClick = message => () => {
         if (chrome.runtime.lastError) {
             document.getElementById('controls').style.display = 'block';
             const txt = chrome.i18n.getMessage('cantTakeScreenshotError') || chrome.runtime.lastError.message;
-            document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+            // document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+			setFeedbackElement(`<p>${txt}</p>`);
             return;
         }
 
@@ -54,12 +64,14 @@ const handleClick = message => () => {
             window.close();
         } else if (response && response.type === 'errorFeedback') {
             const msg = chrome.i18n.getMessage(response.message + 'Error') || response.detail || 'Error';
-            document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
+            // document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
+            setFeedbackElement(`<p>${msg}</p>`);
             document.getElementById('controls').style.display = 'block';
         } else {
             document.getElementById('controls').style.display = 'block';
             const msg = chrome.i18n.getMessage('cantTakeScreenshotError') || 'Could not take screenshot.';
-            document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
+            // document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
+			setFeedbackElement(`<p>${msg}</p>`);
         }
     });
 };

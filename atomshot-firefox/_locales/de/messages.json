@@ -61,7 +61,7 @@
     },
     "resultActionDomainInfo": {
         "description": "Label of the 'domain info'-action on the result page",
-        "message": "Domaininhaber ermitteln"
+        "message": "Domaininhaber:in ermitteln"
     },
     "resultActionAbout": {
         "description": "Label of the 'about'-link on the result page",
@@ -98,5 +98,29 @@
                 "example": " (Strg + Shift + F)"
             }
         }
-    }
+    },
+	"settingsTitle": {
+		"description": "Document-title for the settings page",
+		"message": "atomshot | Einstellungen"
+	},
+	"settingsTitleSpan": {
+		"description": "Document-title for the settings page header",
+		"message": "atomshot Einstellungen"
+	},
+	"settingsEnableMenu": {
+		"description": "Label for settings to enable/disable right-click menu",
+		"message": "Menüeintrag (Rechtsklick) einschalten"
+	},
+	"settingsImageFormatH3": {
+		"description": "Label mage format settngs header",
+		"message": "Dateiformat"
+	},
+	"settingsJpegQuality": {
+		"description": "Label for Jpeg quality settings",
+		"message": "Bildqualität:"
+	},
+	"settingsStatusSaved": {
+		"description": "Label for settings status message",
+		"message": "Gespeichert!"
+	}
 }
