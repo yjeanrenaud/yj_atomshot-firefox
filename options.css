@@ -1,0 +1,99 @@
+body {
+	margin: 0px;
+}
+#header {
+	height: 50px;
+	position: relative;
+	display: block;
+	padding-left: 32px;
+	width: 100%;
+	background-color: #475602;
+	color: rgba(255, 220, 55, 1.0); /*FFDC37*/
+	background-repeat: no-repeat;
+	background-image: url('images/favicon_atomshot_48_48.png');
+	white-space: nowrap;
+}
+
+#settingsTitleSpan {
+	width: fit-content; /*227px;*/
+	font-size: 18pt;
+	text-align: left;
+	font-weight: bold;
+}
+#settings {
+	position: relative;
+	padding-top: 5px;
+	margin: 10px;
+}
+#status {
+	padding: 20px;
+	background-color: transparent;
+	color: rgba(255, 220, 55, 1.0); /*FFDC37*/
+	white-space: nowrap;
+	display: block;
+	width: fit-content;
+}
+button {
+	cursor: pointer;
+	margin: 10px auto;
+	padding: 20px;
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	background-repeat:no-repeat;
+	background-color: transparent;
+	border: none;
+}
+button:focus {
+	outline: none;
+}
+
+button.close {
+	background-image: url('images/close-normal.png');
+	margin-left: 20px;
+}
+button.close:focus,
+button.close:active,
+button.close:hover {
+	background-image: url('images/close-hover.png');
+}
+
+button.ggr {
+	background-image: url('images/ggr-normal.png');
+	width: 131px;
+	position: absolute;
+	right: 58px;
+}
+
+button.ggr:focus,
+button.ggr:active,
+button.ggr:hover {
+	background-image: url('images/ggr-hover.png');
+}
+
+button.yj {
+	background-image: url('images/yj-normal.png');
+	background-color: white;
+	position: absolute;
+	right: 200px;
+	font-size: 6pt;
+	color: black;
+	white-space: nowrap;
+	width: fit-content;
+	text-align: right;
+	justify-content: center;
+	padding-left: 48px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 8px;
+	height: 40px;
+
+}
+
+button.yj:focus,
+button.yj:active,
+button.yj:hover {
+	background-color: rgba(255, 255, 255, 0.0); /*, 0.3);*/
+	background-image: url('images/yj-hover.png');
+	color: white;
+}
