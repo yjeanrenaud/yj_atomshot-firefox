@@ -2,8 +2,11 @@
     "name": "__MSG_extName__",
     "description": "__MSG_extDescription__",
     "homepage_url": "https://github.com/yjeanrenaud/yj_atomshot-firefox",
-    "version": "1.4.1",
+    "version": "141.0.4",
+	"version_name": "Gecko-port based on Chromium extension 1.4.1",
     "manifest_version": 2,
+	"author": "Yves Jeanrenaud",
+	 "options_page": "options.html",
     "background": {
         "scripts": [
             "background.js"
@@ -15,14 +18,20 @@
         "16": "/images/favicon_atomshot_16_16.png",
         "32": "/images/favicon_atomshot_32_32.png",
         "48": "/images/favicon_atomshot_48_48.png",
-        "56": "/images/favicon_atomshot_56_56.png",
+        "64": "/images/favicon_atomshot_64_64.png",
         "128": "/images/favicon_atomshot_128_128.png"
     },
     "permissions": [
         "activeTab",
         "tabs",
+		"menus",
+		"storage",
         "https://www.atomshot.de/*"
     ],
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": true
+	},
     "commands": {
         "captureVisible": {
             "suggested_key": {
@@ -43,15 +52,44 @@
             "16": "/images/favicon_atomshot_16_16.png",
             "32": "/images/favicon_atomshot_32_32.png",
             "48": "/images/favicon_atomshot_48_48.png",
-            "56": "/images/favicon_atomshot_56_56.png",
+            "56": "/images/favicon_atomshot_64_64.png",
             "128": "/images/favicon_atomshot_128_128.png"
         },
         "default_title": "__MSG_extPopupHover__"
     },
-    "applications": {
-        "gecko": {
-            "id": "yj_atomshot_firefox@yves.app",
+	"page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/favicon_atomshot_16_16.png",
+            "32": "/images/favicon_atomshot_32_32.png",
+            "48": "/images/favicon_atomshot_48_48.png",
+            "56": "/images/favicon_atomshot_64_64.png",
+            "128": "/images/favicon_atomshot_128_128.png"
+        },
+        "default_title": "__MSG_extPopupHover__"
+    },
+	"sidebar_action": {
+        "default_panel": "popup.html",
+		"default_title": "__MSG_extName__",
+		"open_at_install": true,
+        "default_icon": {
+            "16": "/images/favicon_atomshot_16_16.png",
+            "32": "/images/favicon_atomshot_32_32.png",
+            "48": "/images/favicon_atomshot_48_48.png",
+            "56": "/images/favicon_atomshot_64_64.png",
+            "128": "/images/favicon_atomshot_128_128.png"
+        },
+        "default_title": "__MSG_extPopupHover__"
+    },
+
+	"browser_specific_settings": {
+		"gecko": {
+			"data_collection_permissions": {
+			  "required": ["browsingActivity"],
+			  "optional": ["technicalAndInteraction"]
+			},
+			"id": "yj_atomshot_firefox@yves.app",
             "strict_min_version": "109.0"
-        }
-    }
+		}
+	}
 }
