@@ -1,5 +1,5 @@
 # yj_atomshot-firefox
-a port of the Chromium extension Atomshot by 
+a port of the Chromium extension Atomshot by gulden röttger solicitors.
 
 <img src="atomshot-firefox/images/favicon_atomshot_128_128.png" alt="Logo Atomshot. Aperture with three yellow stripes similar to a radio active symbol" align="right"> atomshot is a browser extension that produces *legally secure* screenshots of your browser's content by adding a trusted, atom-clock backed time stamp and precise URL. It is made by [gulden rötter solicitors](https://ggr-law.com/screenshot-tool-beweise-atomshot/) and it is used by solicitors and courts to preserve evidence alike. It depends on a dedicated  timeserver and collects all relevant data (as far as I learned) to secure digital evidence for legal purposes. But it's only available for Chomium-based browsers. I dislike the Chromium architecture, hence I wanted to port it to Gecko-based browsers (Firefox and Waterfox, which I use, to be precise).
 
