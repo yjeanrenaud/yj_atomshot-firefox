@@ -45,7 +45,7 @@
     },
     "resultTitle": {
         "description": "Document-title on the page showing the screenshot in the end",
-        "message": "gulden röttger rechtsanwälte - Screenshot mit Atomzeit | Gecko-based Browsererweiterung: Yves Jeanrenaud"
+        "message": "gulden röttger rechtsanwälte - Screenshot mit Atomzeit | Yves Jeanrenaud - Gecko-basierte Browsererweiterung"
     },
     "resultActionClose": {
         "description": "Label of the 'close'-action on the result page",
@@ -65,11 +65,11 @@
     },
     "resultActionAbout": {
         "description": "Label of the 'about'-link on the result page",
-        "message": "gulden röttger rechtsanwälte | Gecko-based Browsererweiterung: Yves Jeanrenaud"
+        "message": "Gecko-basierte Browsererweiterung: Yves Jeanrenaud | Original Browsererweiterung von gulden röttger rechtsanwälte"
     },
     "resultActionYJ": {
         "description": "Label of the 'yj'-link on the result page",
-        "message": "Gecko-based Browsererweiterung: Yves Jeanrenaud"
+        "message": "Gecko-basierte Browsererweiterung: Yves Jeanrenaud"
     },
     "hotkeyActionCaptureVisible": {
         "description": "Label for the action to capture the visible area in the hotkey settings",

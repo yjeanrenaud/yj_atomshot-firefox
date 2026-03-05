@@ -86,13 +86,23 @@ button.ggr:hover {
 }
 
 button.yj {
+	background-image: url('images/yj-normal.png');
 	background-color: white;
 	position: absolute;
 	right: 200px;
 	font-size: 6pt;
 	color: black;
 	white-space: nowrap;
-	width: fit-content;
-	text-align: center;
+	width: 237px; /*fit-content;*/
+	text-align: right;
 	justify-content: center;
+	padding-left: 48px;
+}
+
+button.yj:focus,
+button.yj:active,
+button.yj:hover {
+	background-color: rgba(255, 255, 255, 0.0); /*, 0.3);*/
+    background-image: url('images/yj-hover.png');
+	color: white;
 }

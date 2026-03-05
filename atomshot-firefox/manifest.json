@@ -1,7 +1,7 @@
 {
     "name": "__MSG_extName__",
     "description": "__MSG_extDescription__",
-    "homepage_url": "https://ggr-law.com/atomshot/",
+    "homepage_url": "https://github.com/yjeanrenaud/yj_atomshot-firefox",
     "version": "1.4.1",
     "manifest_version": 2,
     "background": {
@@ -15,6 +15,7 @@
         "16": "/images/favicon_atomshot_16_16.png",
         "32": "/images/favicon_atomshot_32_32.png",
         "48": "/images/favicon_atomshot_48_48.png",
+        "56": "/images/favicon_atomshot_56x56.png",
         "128": "/images/favicon_atomshot_128_128.png"
     },
     "permissions": [
@@ -42,13 +43,14 @@
             "16": "/images/favicon_atomshot_16_16.png",
             "32": "/images/favicon_atomshot_32_32.png",
             "48": "/images/favicon_atomshot_48_48.png",
+            "56": "/images/favicon_atomshot_56_56.png",
             "128": "/images/favicon_atomshot_128_128.png"
         },
         "default_title": "__MSG_extPopupHover__"
     },
     "applications": {
         "gecko": {
-            "id": "atomshot@atomshot.de",
+            "id": "yj_atomshot_firefox@yves.app",
             "strict_min_version": "109.0"
         }
     }
