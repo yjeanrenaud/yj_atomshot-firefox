@@ -27,13 +27,39 @@ const getHotkey = (actions, actionName) => {
  */
 const handleClick = message => () => {
     document.getElementById('controls').style.display = 'none';
+
+    let done = false;
+    const timeout = setTimeout(() => {
+        if (done) return;
+        done = true;
+        document.getElementById('controls').style.display = 'block';
+        const txt = chrome.i18n.getMessage('cantTakeScreenshotError') || 'Could not take screenshot.';
+        document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+    }, 6000);
+
     chrome.runtime.sendMessage(message, (response) => {
-        if (response.ack) {
+        if (done) return;
+        done = true;
+        clearTimeout(timeout);
+
+        if (chrome.runtime.lastError) {
+            document.getElementById('controls').style.display = 'block';
+            const txt = chrome.i18n.getMessage('cantTakeScreenshotError') || chrome.runtime.lastError.message;
+            document.getElementById('feedback').innerHTML = `<p>${txt}</p>`;
+            return;
+        }
+
+        if (response && response.ack) {
             document.getElementById('loading').style.display = 'block';
             window.close();
-        } else if (response.type === 'errorFeedback') {
-            const message = chrome.i18n.getMessage(response.message + 'Error');
-            document.getElementById('feedback').innerHTML = `<p>${message}</p>`;
+        } else if (response && response.type === 'errorFeedback') {
+            const msg = chrome.i18n.getMessage(response.message + 'Error') || response.detail || 'Error';
+            document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
+            document.getElementById('controls').style.display = 'block';
+        } else {
+            document.getElementById('controls').style.display = 'block';
+            const msg = chrome.i18n.getMessage('cantTakeScreenshotError') || 'Could not take screenshot.';
+            document.getElementById('feedback').innerHTML = `<p>${msg}</p>`;
         }
     });
 };

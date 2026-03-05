@@ -1,3 +1,38 @@
+//** constants for hardening captureVisibleToCanvas() */
+const CAPTURE_FORMAT = 'png'; // 'jpeg' | 'png'
+const OUTPUT_MIME = (CAPTURE_FORMAT === 'jpeg') ? 'image/jpeg' : 'image/png';
+const CAPTURE_QUALITY = 85;    // only used for jpeg
+const MSG_TIMEOUT_MS = 8000;
+
+// basic error handling
+const sendMessageWithTimeout = (tabId, msg, timeoutMs = MSG_TIMEOUT_MS) => new Promise((res, rej) => {
+    let done = false;
+    const t = setTimeout(() => {
+        if (done) return;
+        done = true;
+        rej(new Error('sendMessage timeout'));
+    }, timeoutMs);
+
+    try {
+        chrome.tabs.sendMessage(tabId, msg, (response) => {
+            if (done) return;
+            done = true;
+            clearTimeout(t);
+
+            if (chrome.runtime.lastError) {
+                rej(new Error(chrome.runtime.lastError.message));
+            } else {
+                res(response);
+            }
+        });
+    } catch (e) {
+        if (done) return;
+        done = true;
+        clearTimeout(t);
+        rej(e);
+    }
+});
+
 /**
  * @typedef ScrollshotParameters
  * @param {number} width
@@ -39,6 +74,15 @@ const getHost = url => {
 // In Firefox MV2 background pages, i18n is available directly.
 const i18nGetMessage = (name, placeholders) => chrome.i18n.getMessage(name, placeholders);
 
+// Capture errors
+console.log('[atomshot] background started', chrome.runtime.getManifest().version);
+
+self.addEventListener('unhandledrejection', (e) => {
+    console.error('[atomshot] unhandledrejection', e.reason);
+});
+self.addEventListener('error', (e) => {
+    console.error('[atomshot] error', e.error || e.message);
+});
 
 /**
  * @typedef {{
@@ -144,26 +188,40 @@ const getImageBitmap = uri =>
 const captureVisibleToCanvas = (tab, x, y, w = 0, h = 0, dx, dy, dw, dh) =>
     new Promise((res, rej) => {
         const { ctx } = getCanvas(tab);
-        chrome.tabs.captureVisibleTab(chrome.windows.WINDOW_ID_CURRENT, { format: 'png' }, (dataURI) => {
+
+        // Prefer captureTab when available: avoids windowId edge-cases and is often more stable.
+        const captureFn = (chrome.tabs.captureTab && tab && tab.id)
+            ? (cb) => chrome.tabs.captureTab(tab.id, {
+                format: CAPTURE_FORMAT,
+                quality: CAPTURE_FORMAT === 'jpeg' ? CAPTURE_QUALITY : undefined,
+            }, cb)
+            : (cb) => chrome.tabs.captureVisibleTab(chrome.windows.WINDOW_ID_CURRENT, {
+                format: CAPTURE_FORMAT,
+                quality: CAPTURE_FORMAT === 'jpeg' ? CAPTURE_QUALITY : undefined,
+            }, cb);
+
+        captureFn((dataURI) => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError);
-                rej();
+                rej(new Error(chrome.runtime.lastError.message));
             } else if (dataURI) {
                 getImageBitmap(dataURI)
                     .then(img => {
                         if (dx !== undefined && dy !== undefined && dw !== undefined && dh !== undefined) {
-                            return ctx.drawImage(img, x, y, w, h, dx, dy, dw, dh);
+                            ctx.drawImage(img, x, y, w, h, dx, dy, dw, dh);
+                        } else {
+                            ctx.drawImage(img, x, y, w, h);
                         }
-                        return ctx.drawImage(img, x, y, w, h);
                     })
-                    .then(() => res(dataURI));
+                    .then(() => res(dataURI))
+                    .catch(rej);
             } else {
-                console.error('Could not take screenshot');
-                rej();
+                const err = new Error('Could not take screenshot');
+                console.error(err);
+                rej(err);
             }
         });
     });
-
 
 /**
  * Add the info-text as header
@@ -264,11 +322,18 @@ const takeScreenshot = (tab) =>
  */
 const canvasToBlob = (c) => {
     if (c && typeof c.convertToBlob === 'function') {
-        return c.convertToBlob();
+        return c.convertToBlob({
+            type: OUTPUT_MIME,
+            quality: CAPTURE_FORMAT === 'png' ? (CAPTURE_QUALITY / 100) : undefined
+        });
     }
     return new Promise((res, rej) => {
         try {
-            c.toBlob((blob) => blob ? res(blob) : rej(new Error('toBlob returned null')), 'image/png');
+            c.toBlob(
+                (blob) => blob ? res(blob) : rej(new Error('toBlob returned null')),
+                OUTPUT_MIME,
+                CAPTURE_FORMAT === 'png' ? (CAPTURE_QUALITY / 100) : undefined
+            );
         } catch (e) {
             rej(e);
         }
@@ -294,6 +359,7 @@ const blobToDataUrl = blob => new Promise((res, rej) => {
  * @param {Tab} tab
  * @returns {Promise<void>}
  */
+		
 const requestScrollshot = (tab) => new Promise((res, rej) => {
     chrome.tabs.sendMessage(tab.id, { action: 'background.initScrollshot' }, message => {
         if (!message) {
@@ -320,11 +386,14 @@ const requestScrollshot = (tab) => new Promise((res, rej) => {
 const setupScrollshot = (tab, parameters) => {
     scrollshotParameters = parameters;
     getCanvas(tab, parameters.width, parameters.height + space_top);
-    chrome.tabs.sendMessage(tab.id, { action: 'background.scrollNext' }, message => {
-        setTimeout(() => {
-            addScrollshot(tab, message.viewport, scrollshotParameters);
-        }, 500);
-    });
+
+    // page.js responds only once it has scrolled and the frame is ready.
+    sendMessageWithTimeout(tab.id, { action: 'background.scrollNext' })
+        .then((message) => addScrollshot(tab, message.viewport, scrollshotParameters))
+        .catch((e) => {
+            console.error('[atomshot] setupScrollshot failed', e);
+            resetIcon();
+        });
 };
 
 /**
@@ -334,22 +403,30 @@ const setupScrollshot = (tab, parameters) => {
  * @param {ScrollshotParameters} viewportOptions
  */
 const addScrollshot = (tab, viewportFrame, viewportOptions) => {
+    if (!viewportFrame) {
+        finalizeScrollshot(tab);
+        return;
+    }
+
     captureVisibleToCanvas(tab,
         viewportFrame.x - (viewportOptions.windowWidth - viewportFrame.w),
         viewportFrame.y + space_top - (viewportOptions.windowHeight - viewportFrame.h),
         tab.width,
         tab.height
     )
-        .then(() => {
-            chrome.tabs.sendMessage(tab.id, { action: 'background.scrollNext' }, message => {
-                if (message.viewport) {
-                    setTimeout(() => {
-                        addScrollshot(tab, message.viewport, viewportOptions);
-                    }, 500);
-                } else {
-                    finalizeScrollshot(tab);
-                }
-            });
+        .then(() => sendMessageWithTimeout(tab.id, { action: 'background.scrollNext' }))
+        .then((message) => {
+            if (message && message.viewport) {
+                addScrollshot(tab, message.viewport, viewportOptions);
+            } else {
+                finalizeScrollshot(tab);
+            }
+        })
+        .catch((e) => {
+            console.error('[atomshot] addScrollshot failed', e);
+            resetIcon();
+            // Best-effort cleanup
+            try { chrome.tabs.sendMessage(tab.id, { action: 'background.cleanup' }); } catch (_) {}
         });
 };
 
@@ -405,21 +482,31 @@ const captureVisible = () => new Promise((res, rej) => {
 // listen to commands from the popup
 chrome.runtime.onMessage.addListener((message, _sender, respond) => {
     let result = Promise.resolve();
+
     switch (message.action) {
-        case 'popup.captureFullpage': {
+        case 'popup.captureFullpage':
             result = captureFullpage();
             break;
-        }
-        case 'popup.captureVisible': {
+        case 'popup.captureVisible':
             result = captureVisible();
             break;
-        }
+        default: // basic error handling
+            respond({ ok: false, type: 'errorFeedback', message: 'unknownAction' });
+            return false;
     }
+
     result
-        .then(() => respond({ ack: true }))
-        .catch(() => {
-            respond({ type: 'errorFeedback', message: 'cantTakeScreenshot' });
+        .then(() => respond({ ok: true, ack: true }))
+        .catch((e) => {
+            console.error('[atomshot] action failed', message && message.action, e);
+            respond({
+                ok: false,
+                type: 'errorFeedback',
+                message: 'cantTakeScreenshot',
+                detail: String(e && e.message ? e.message : e),
+            });
         });
+
     return true;
 });
 

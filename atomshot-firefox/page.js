@@ -66,6 +66,11 @@ const scrollToNext = () => {
     return currentFrame;
 };
 
+//wait for paint event
+const afterNextPaint = () => new Promise((res) => {
+    requestAnimationFrame(() => requestAnimationFrame(res));
+});
+
 const restoreViewport = () => {
     document.documentElement.style.overflow = viewportBackup.overflow;
     window.scrollTo(viewportBackup.x, viewportBackup.y);
@@ -87,10 +92,12 @@ if (!window.__screenCaptureInit) {
                 });
                 break;
             }
-            case 'background.scrollNext': {
-                const frame = scrollToNext();
-                respond({ action: 'page.scrolledNext', viewport: frame });
-                break;
+			case 'background.scrollNext': {
+				const frame = scrollToNext();
+				afterNextPaint().then(() => {
+					respond({ action: 'page.scrolledNext', viewport: frame });
+				});
+				return true; // async response
             }
             case 'background.cleanup':
                 restoreViewport();
