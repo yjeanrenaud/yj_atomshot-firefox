@@ -1,9 +1,9 @@
 # yj_atomshot-firefox
-a port of the Chromium extension Atomshot
+a port of the Chromium extension Atomshot by 
 
-atomshot is a browser extension that produces *legally secure* screenshots of browser content. It is made by [gulden rötter](https://ggr-law.com/screenshot-tool-beweise-atomshot/) and it is used by solicitors and courts to preserve evidence alike. It depends on a seperate timeserver and collects all relevant data (as far as I learned) to secure digital evidence. I dislike the Chromium architecture, hence I wanted to port it to firefox (and waterfox, to be precise).
+<img src="atomshot-firefox/images/favicon_atomshot_128_128.png" alt="Logo Atomshot. Aperture with three yellow stripes similar to a radio active symbol" align="right"> atomshot is a browser extension that produces *legally secure* screenshots of your browser's content by adding a trusted, atom-clock backed time stamp and precise URL. It is made by [gulden rötter solicitors](https://ggr-law.com/screenshot-tool-beweise-atomshot/) and it is used by solicitors and courts to preserve evidence alike. It depends on a dedicated  timeserver and collects all relevant data (as far as I learned) to secure digital evidence for legal purposes. But it's only available for Chomium-based browsers. I dislike the Chromium architecture, hence I wanted to port it to Gecko-based browsers (Firefox and Waterfox, which I use, to be precise).
 
-See [https://ggr-law.com/screenshot-tool-beweise-atomshot/](https://ggr-law.com/screenshot-tool-beweise-atomshot/) for more (in German).
+See [https://ggr-law.com/screenshot-tool-beweise-atomshot/](https://ggr-law.com/screenshot-tool-beweise-atomshot/) for more details (in German).
 
 ### What I changed 
 - Removed `update_url`, which is Chrome Web Store–specific
@@ -15,9 +15,18 @@ See [https://ggr-law.com/screenshot-tool-beweise-atomshot/](https://ggr-law.com/
 - furthermore, I added Firefox add-on identifier `applications.gecko.id = "atomshot@atomshot.de"`
 - changed tabs permission, which are needed for executeScript / screenshot workflow in Firefox
 - Updated `popup.js` to avoid Chrome-only Promise usage for `chrome.commands.getAll`
+- added some basic error handling `chrome.runtime.lastError`, `console.error`, and `console.log` messages, also in `handleClick`
+- added constants for hardening `captureVisibleToCanvas()`
+- speeded up caputring by prefering `captureTab(tab.id)`
+- skipping `setTimeout`
+- fixed listener function by waiting for `promise.resolve()`
+- `background.scrollNext()` waits for `paint` to finish
 
 ## Install
 How to load it in Firefox/Waterfox (temporary install)
-- Open <a href="about:debugging#/runtime/this-firefox" target="_blank">about:debugging#/runtime/this-firefox</a>
+- Open *<a href="about:debugging#/runtime/this-firefox" target="_blank">about:debugging#/runtime/this-firefox</a>*
 - Click “Load Temporary Add-on…”
 - use the zip-file from [Releases](https://github.com/yjeanrenaud/yj_atomshot-firefox/releases) or unzip the file and select the `manifest.json`
+
+## ToDo
+- add file format toggle
