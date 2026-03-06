@@ -2,3 +2,5 @@
 
 # the original extension for Chromium-based browserss. It's in the repo only for documentation purposes
 atomshot-Chrome-Web-Store.zip
+#web-ext stuff
+.amo-upload-uuid
