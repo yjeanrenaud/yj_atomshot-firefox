@@ -1,0 +1,126 @@
+{
+    "extName": {
+        "description": "Extension name",
+        "message": "atomshot"
+    },
+    "extDescription": {
+        "description": "Extension description",
+        "message": "Cette extension crée une capture d'écran avec l'heure exacte atomique à la seconde près."
+    },
+    "extPopupHover": {
+        "description": "Hover message on the extension popup",
+        "message": "Prenez une capture d'écran!"
+    },
+    "screenshotHeaderTime": {
+        "description": "Text for the screenshot header containing the date and time",
+        "message": "Cette capture d'écran a été prise le: Date $DATE$ Heure $TIME$ (temps atomique PTB d'Allemagne)",
+        "placeholders": {
+            "date": {
+                "content": "$1",
+                "example": "yyyy-mm-dd"
+            },
+            "time": {
+                "content": "$2",
+                "example": "hh:ii:ss"
+            }
+        }
+    },
+    "screenshotHeaderPage": {
+        "description": "Text for the screenshot header containing the URL the screenshot was taken on",
+        "message": "URL: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.com/foo/bar?baz=12"
+            }
+        }
+    },
+    "timeServerError": {
+        "description": "Message displayed when the time could not be fetched from the time server",
+        "message": "Impossible d'établir une connexion avec le serveur de temps. Veuillez réessayer ultérieurement."
+    },
+    "cantTakeScreenshotError": {
+        "description": "Message displayed when no screenshot can be taken for the current page",
+        "message": "Capture d'écran impossible sur cette page."
+    },
+    "resultTitle": {
+        "description": "Document-title on the page showing the screenshot in the end",
+        "message": "gulden röttger rechtsanwälte - Capture d'écran avec l'heure atomique | Yves Jeanrenaud - Extension de navigateur basée sur Gecko"
+    },
+    "resultActionClose": {
+        "description": "Label of the 'close'-action on the result page",
+        "message": "Fermer"
+    },
+    "resultActionSave": {
+        "description": "Label of the 'save'-action on the result page",
+        "message": "Enregistrer"
+    },
+    "resultActionPrint": {
+        "description": "Label of the 'print'-action on the result page",
+        "message": "Imprimer"
+    },
+    "resultActionDomainInfo": {
+        "description": "Label of the 'domain info'-action on the result page",
+        "message": "Déterminer le propriétaire du domaine"
+    },
+    "resultActionAbout": {
+        "description": "Label of the 'about'-link on the result page",
+        "message": "Extension de navigateur basée sur Gecko: Yves Jeanrenaud | Extension de navigateur originale de gulden röttger rechtsanwälte"
+    },
+    "resultActionYJ": {
+        "description": "Label of the 'yj'-link on the result page",
+        "message": "Extension de navigateur basée sur Gecko: Yves Jeanrenaud"
+    },
+    "hotkeyActionCaptureVisible": {
+        "description": "Label for the action to capture the visible area in the hotkey settings",
+        "message": "Capture d'écran de la zone visible"
+    },
+    "hotkeyActionCaptureEntire": {
+        "description": "Label for the action to capture the complete page in the hotkey settings",
+        "message": "Capture d'écran de la page entière"
+    },
+    "popupActionCaptureVisible": {
+        "description": "Label for the action to capture the visible area in the popup",
+        "message": "Zone visible$HOTKEY$",
+        "placeholders": {
+            "hotkey": {
+                "content": "$1",
+                "example": " (Ctrl + Maj + Y)"
+            }
+        }
+    },
+    "popupActionCaptureEntire": {
+        "description": "Label for the action to capture the complete page in the popup",
+        "message": "Page entière$HOTKEY$",
+        "placeholders": {
+            "hotkey": {
+                "content": "$1",
+                "example": " (Ctrl + Maj + F)"
+            }
+        }
+    },
+	"settingsTitle": {
+		"description": "Document-title for the settings page",
+		"message": "atomshot | Paramètres"
+	},
+	"settingsTitleSpan": {
+		"description": "Document-title for the settings page header",
+		"message": "Paramètres atomshot"
+	},
+	"settingsEnableMenu": {
+		"description": "Label for settings to enable/disable right-click menu",
+		"message": "Activer l'entrée de menu (clic droit)"
+	},
+	"settingsImageFormatH3": {
+		"description": "Label mage format settngs header",
+		"message": "Format de fichier"
+	},
+	"settingsJpegQuality": {
+		"description": "Label for Jpeg quality settings",
+		"message": "Qualité de l'image:"
+	},
+	"settingsStatusSaved": {
+		"description": "Label for settings status message",
+		"message": "Enregistré!"
+	}
+}
