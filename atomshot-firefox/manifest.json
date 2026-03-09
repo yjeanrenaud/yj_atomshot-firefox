@@ -2,7 +2,7 @@
     "name": "__MSG_extName__",
     "description": "__MSG_extDescription__",
     "homepage_url": "https://github.com/yjeanrenaud/yj_atomshot-firefox",
-    "version": "141.0.10",
+    "version": "141.0.11",
 	"version_name": "Gecko-port based on Chromium extension 1.4.1",
     "manifest_version": 2,
 	"author": "Yves Jeanrenaud",
@@ -85,7 +85,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"data_collection_permissions": {
-			  "required": ["browsingActivity"]
+			  "required": ["none"]
 			},
 			"id": "yj_atomshot_firefox@yves.app",
             "strict_min_version": "142.0"
