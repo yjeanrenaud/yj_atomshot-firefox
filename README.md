@@ -27,12 +27,13 @@ This is the link to the chrome web store entry of the extension: [https://chrome
 - added 65x65 icons (why ever I thought 56x56 would be a good idea)
 - added `favicon_atomshot_allSizes.ico` 
 - added do `page_action`, too
+- uploaded to *addons.mozilla.org*
 - added to menus for convenience
 - addressed a **security issue**: added `setFeedbackElement(text)` to avoid setting `innerHTML=` with potentially un-sanitised values<br/>
   this prevents XSS if any of those values ever contain `<script>`, `<img onError=...>`, etc. and get executed.
 - domain-info button now localised and non-static
 - added options page. User may now select the file format of the screenshot and enable/disable the menu entry
-- uploaded to *addons.mozilla.org*
+- added sidebar
 - added French
   
 ## Install
