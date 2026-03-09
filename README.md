@@ -37,15 +37,15 @@ This is the link to the chrome web store entry of the extension: [https://chrome
 - added French
   
 ## Install
-How to load it in Firefox/Waterfox (temporary install)
+### How to load it in Firefox/Waterfox (temporary install)
 - Open *<a href="about:debugging#/runtime/this-firefox" target="_blank">about:debugging#/runtime/this-firefox</a>*
 - Click "Load Temporary Add-on…"
 - use the zip-file from [Releases](https://github.com/yjeanrenaud/yj_atomshot-firefox/releases) or unzip the file and select the `manifest.json`
 
-How to install regularly
+### How to install regularly
 - use the xpi-file from [Releases](https://github.com/yjeanrenaud/yj_atomshot-firefox/releases)
 - or go to the Add-on Mozilla 
   <a href="https://addons.mozilla.org/en-GB/firefox/addon/atomshot/" target="_blank"><img width="172" height="60" alt="Get the ADD-ON" src="https://github.com/user-attachments/assets/278a3292-b597-452a-964a-f7bfccb9685e" /></a>
 
 ## ToDo
-- make it compatbile to Gecko-browsers on smart phones
+- make it compatbile to Gecko-browsers on smartphones
